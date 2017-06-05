@@ -12,8 +12,8 @@ public class RunApp {
 	public static void main(String[] args) {
 		try {
 			ConfigurationBuilder builder = new ConfigurationBuilder();
-			builder.setOAuthConsumerKey("AidkAMQsmUr4NAza9TRz9wMsC");
-			builder.setOAuthConsumerSecret("HoS31kBwXtnfqKLOVuNHcEBncUInmsvQIXFCAhCynlolaqTaA9");
+			builder.setOAuthConsumerKey("key");
+			builder.setOAuthConsumerSecret("key");
 			Configuration configuration = builder.build();
 			TwitterFactory factory = new TwitterFactory(configuration);
 
@@ -28,8 +28,8 @@ public class RunApp {
 	}
 
 	private static AccessToken loadAccessToken() {
-		String token = "870724372163645440-aca7y32h9EVeWW7AzmGC4Ya4Dt3dQ1u";
-		String tokenSecret = "Ot6rrmMtQKysRwmYuepZFOPxS4QttULVAaB2ARRLCccSj";
+		String token = "key";
+		String tokenSecret = "key";
 		return new AccessToken(token, tokenSecret);
 	}
 }
