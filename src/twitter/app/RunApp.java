@@ -1,5 +1,6 @@
 package twitter.app;
 
+import twitter.configuration.Config;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -10,10 +11,13 @@ import twitter4j.conf.ConfigurationBuilder;
 public class RunApp {
 
 	public static void main(String[] args) {
+		
+		
+		Config config = new Config();		
 		try {
 			ConfigurationBuilder builder = new ConfigurationBuilder();
-			builder.setOAuthConsumerKey("key");
-			builder.setOAuthConsumerSecret("key");
+			builder.setOAuthConsumerKey(config.getOAuthConsumerKey());
+			builder.setOAuthConsumerSecret(config.getOAuthConsumerSecret());
 			Configuration configuration = builder.build();
 			TwitterFactory factory = new TwitterFactory(configuration);
 
@@ -28,8 +32,8 @@ public class RunApp {
 	}
 
 	private static AccessToken loadAccessToken() {
-		String token = "key";
-		String tokenSecret = "key";
-		return new AccessToken(token, tokenSecret);
+		
+		Config config = new Config();
+		return new AccessToken(config.getAccessTokenKey(), config.getAccessTokenSecret());
 	}
 }
