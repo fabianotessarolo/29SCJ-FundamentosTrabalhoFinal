@@ -4,7 +4,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Twitta
-		System.out.println(new Operations().tweet("fabianovt" , "Olá!"));
+		Operations operations = new Operations();
+		String hashtag = "#openjdk";
+		
+		//System.out.println(operations.tweet("fabianovt" , "Olá2!"));
+		
+		operations.countTweetsLastWeek(hashtag);
+		
 
 		
 		
