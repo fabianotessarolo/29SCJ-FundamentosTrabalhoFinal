@@ -9,4 +9,5 @@ public interface OperationsInterface {
 	public int countFavoritesLastWeek(String hashtag);
 	public List<String> orderTweetsByAuthor(String hashtag);
 	public List<String> orderTweetsByDate(String hashtag);
+	public String tweet(String who, String message);
 }

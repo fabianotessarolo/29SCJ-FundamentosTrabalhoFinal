@@ -8,11 +8,10 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class Factory {
-	
-	
-	private Twitter twitter;
 
-	public Twitter get() {
+	private static Twitter twitter;
+
+	public static Twitter get() {
 
 		Config config = new Config();
 		try {
@@ -22,13 +21,13 @@ public class Factory {
 			Configuration configuration = builder.build();
 			TwitterFactory factory = new TwitterFactory(configuration);
 
-			this.twitter = factory.getInstance();
+			twitter = factory.getInstance();
 			AccessToken accessToken = new AccessToken(config.getAccessTokenKey(), config.getAccessTokenSecret());
 			twitter.setOAuthAccessToken(accessToken);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return this.twitter;
+		return twitter;
 
 	}
 
