@@ -1,6 +1,8 @@
-package twitter.model;
+package twitter.utils;
 
 import java.util.Comparator;
+
+import twitter.model.Tweet;
 
 public class DataComparator implements Comparator<Tweet> {
 

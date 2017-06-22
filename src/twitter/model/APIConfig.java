@@ -1,18 +1,18 @@
-package twitter.configuration;
+package twitter.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Config {
+public class APIConfig {
 	
 	private String OAuthConsumerKey = null;
 	private String OAuthConsumerSecret = null;
 	private String AccessTokenKey = null;
 	private String AccessTokenSecret = null;
 
-	public Config() {
+	public APIConfig() {
 
 		Properties prop = new Properties();
 		InputStream input = null;
