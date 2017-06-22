@@ -1,19 +1,18 @@
-package twitter.connector;
+package twitter.auth;
 
-import twitter.model.APIConfig;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class APIConnector {
+public class TwitterAPIAuth {
 
 	private static Twitter twitter;
 
-	public static Twitter get() {
+	public static Twitter getAccess() {
 
-		APIConnector config = new APIConnector();
+		TwitterAPI config = new TwitterAPI();
 		try {
 			ConfigurationBuilder builder = new ConfigurationBuilder();
 			builder.setOAuthConsumerKey(config.getOAuthConsumerKey());
