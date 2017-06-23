@@ -2,9 +2,9 @@ package twitter.app;
 
 import java.util.List;
 
-import twitter.models.Tweet;
 import twitter.services.APIService;
 import twitter.utils.DateUtil;
+import twitter.wrappers.TweetAnalyticsWrapper;
 import twitter.wrappers.TweetWrapper;
 
 public class Main {
@@ -16,22 +16,26 @@ public class Main {
 		// Hashtag selecionada para pesquisa
 		String hashtag = "#javaone";
 		
-		// Total Tweets
-		List<TweetWrapper> tweetsLastWeek = service.getAnalytics(hashtag);
+		// GET ALL TWEETS
+		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag);
 		
-		for (TweetWrapper tweetWrapper : tweetsLastWeek) {
+		// GET TOTAL TWEETS
+		List<TweetAnalyticsWrapper> analytics = service.getAnalytics(tweetsLastWeek);
+		
+		for (TweetAnalyticsWrapper analytic : analytics) {
 			System.out.println("\r--------------------------------------------\r" + 
-					DateUtil.formatter(tweetWrapper.getDate()) + ": " + hashtag + " " + 
-					tweetWrapper.getTotalTweets() + " Tweets, " + 
-					tweetWrapper.getTotalRetweets() + " Retweets, " +
-					tweetWrapper.getTotalFavorites() + " Favorites.");
+					DateUtil.formatter(analytic.getDate()) + ": " + hashtag + " " + 
+					analytic.getTotalTweets() + " Tweets, " + 
+					analytic.getTotalRetweets() + " Retweets, " +
+					analytic.getTotalFavorites() + " Favorites.");
 		}
 		
-		// All Tweets
-		List<Tweet> tweets = service.getTweetsLastWeek(hashtag);
+		//TODO:	4. Ordenar os tweets pelo nome do autor, e exibir o primeiro nome e o último nome.
+		
+		//TODO: 5. Ordenar os tweets por data, e exibir a data mais recente e a menos recente.	
 
 		
-//		// Postar o resultado das analises
+//		// POST RESULTS
 //		Tweet tweet = new Tweet();
 //		tweet.setMensagemTweet("\r--------------------------------------------\r" + formatter(gCalendarInicio)
 //				+ ": " + hashtag + " " + contadorDeTweets + " tweets, " + contadorDeRetweets + " Retweets, "

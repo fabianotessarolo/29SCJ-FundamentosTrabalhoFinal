@@ -7,6 +7,7 @@ import java.util.List;
 import twitter.auth.TwitterAPIAuth;
 import twitter.models.Tweet;
 import twitter.utils.DateUtil;
+import twitter.wrappers.TweetAnalyticsWrapper;
 import twitter.wrappers.TweetWrapper;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -16,36 +17,36 @@ import twitter4j.TwitterException;
 
 public class APIService {
 	
-	public List<TweetWrapper> getAnalytics(String hashtag) {
+	public List<TweetAnalyticsWrapper> getAnalytics(List<TweetWrapper> tweetsWrapper) {
 		
-		List<Tweet> tweets = this.getTweetsLastWeek(hashtag);
-		List<Tweet> tweetsByDate = null;
-		List<TweetWrapper> tweetsAnalytics = new ArrayList<>();
-		
-		TweetWrapper tweetAnaltic = null;
-		
-		//TODO FAZER FILTRO POR DATA 
-//		tweetsByDate = tweets.stream (byDate)
-		
-		for (Tweet tweet : tweetsByDate) {
-			tweetAnaltic = new TweetWrapper();
-			tweetAnaltic.setDate(tweet.getDate());
-			tweetAnaltic.setTotalTweets(tweets.size());
-			tweetAnaltic.setTotalRetweets(tweets.stream().map(e -> e.getRetweetsCount()).reduce(0L, Integer::sum));
-			tweetAnaltic.setTotalFavorites(tweets.stream().map(e -> e.getFavoritesCount()).reduce(0L, Integer::sum));
-			tweetsAnalytics.add(tweetAnaltic);
+		TweetAnalyticsWrapper analytic = null;
+		List<TweetAnalyticsWrapper> analytics = new ArrayList<>();
+
+		for (TweetWrapper tweetWrapper : tweetsWrapper) {
+			
+			int totalTweets = tweetWrapper.getTweets().size();
+			int totalRetweets = 5;
+			int totalFavorites = 6;
+			//TODO: ARRUMAR STREAM
+//			int totalRetweets = tweetWrapper.getTweets().stream().map(e -> e.getRetweetsCount()).reduce(0L, Integer::sum));
+//			int totalFavorites = tweetWrapper.getTweets().stream().map(e -> e.getFavoritesCount()).reduce(0L, Integer::sum));
+//			
+			analytic = new TweetAnalyticsWrapper(tweetWrapper.getDate(), totalTweets, totalRetweets, totalFavorites);
+			analytics.add(analytic);
 		}
-		
-		return tweetsAnalytics;
+
+		return analytics;
 		
 	}
 
-	public List<Tweet> getTweetsLastWeek(String hashtag) {
+	public List<TweetWrapper> getTweetsLastWeek(String hashtag) {
 		
 		List<Tweet> tweets = new ArrayList<>();
+		List<TweetWrapper> tweetsWrapper = new ArrayList<>();
 		Twitter twitter = TwitterAPIAuth.getAccess();
 
 		Tweet tweet = null;
+		TweetWrapper tweetWrapper = null;
 		LocalDate today = DateUtil.today();
 		LocalDate startDate = DateUtil.pastDate(7);
 		
@@ -70,13 +71,16 @@ public class APIService {
 					}
 					result = twitter.search(query);
 				}
+				
+				tweetWrapper = new TweetWrapper(startDate, tweets);
+				tweetsWrapper.add(tweetWrapper);
 				startDate = startDate.plusDays(1);
 			
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return tweets;
+		return tweetsWrapper;
 	}
 
 	public void post(Tweet tweet){

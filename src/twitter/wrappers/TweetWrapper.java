@@ -2,25 +2,24 @@ package twitter.wrappers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
+import twitter.models.Tweet;
 
 public class TweetWrapper implements Serializable  {
 
 	private static final long serialVersionUID = 3900353995010837616L;
 	private LocalDate date;
-	private int totalTweets;
-	private int totalRetweets;
-	private int totalFavorites;
+	private List<Tweet> tweets;
 
 	public TweetWrapper() {
 		super();
 	}
 
-	public TweetWrapper(LocalDate date, int totalTweets, int totalRetweets, int totalFavorites) {
+	public TweetWrapper(LocalDate date, List<Tweet> tweets) {
 		super();
 		this.date = date;
-		this.totalTweets = totalTweets;
-		this.totalRetweets = totalRetweets;
-		this.totalFavorites = totalFavorites;
+		this.tweets = tweets;
 	}
 
 	public LocalDate getDate() {
@@ -31,34 +30,17 @@ public class TweetWrapper implements Serializable  {
 		this.date = date;
 	}
 
-	public int getTotalTweets() {
-		return totalTweets;
+	public List<Tweet> getTweets() {
+		return tweets;
 	}
 
-	public void setTotalTweets(int totalTweets) {
-		this.totalTweets = totalTweets;
-	}
-
-	public int getTotalRetweets() {
-		return totalRetweets;
-	}
-
-	public void setTotalRetweets(int totalRetweets) {
-		this.totalRetweets = totalRetweets;
-	}
-
-	public int getTotalFavorites() {
-		return totalFavorites;
-	}
-
-	public void setTotalFavorites(int totalFavorites) {
-		this.totalFavorites = totalFavorites;
+	public void setTweets(List<Tweet> tweets) {
+		this.tweets = tweets;
 	}
 
 	@Override
 	public String toString() {
-		return "TweetWrapper [date=" + date + ", totalTweets=" + totalTweets + ", totalRetweets=" + totalRetweets
-				+ ", totalFavorites=" + totalFavorites + "]";
+		return "TweetWrapper [date=" + date + ", tweets=" + tweets + "]";
 	}
 
 }
