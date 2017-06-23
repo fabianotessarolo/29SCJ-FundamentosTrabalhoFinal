@@ -1,31 +1,46 @@
 package twitter.app;
 
-import java.util.GregorianCalendar;
+import java.util.List;
+
+import twitter.services.APIService;
+import twitter.utils.DateUtil;
+import twitter.wrappers.TweetAnalyticsWrapper;
+import twitter.wrappers.TweetWrapper;
 
 public class Main {
 
 	public static void main(String[] args) {
-
+		
+		APIService service = new APIService();
+		
 		// Hashtag selecionada para pesquisa
-		String hashtag = "#BombouNaME";
+		String hashtag = "#javaone";
+		
+		// GET ALL TWEETS
+		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag);
+		
+		// GET TOTAL TWEETS
+		List<TweetAnalyticsWrapper> analytics = service.getAnalytics(tweetsLastWeek);
+		
+		for (TweetAnalyticsWrapper analytic : analytics) {
+			System.out.println("\r--------------------------------------------\r" + 
+					DateUtil.formatter(analytic.getDate()) + ": " + hashtag + " " + 
+					analytic.getTotalTweets() + " Tweets, " + 
+					analytic.getTotalRetweets() + " Retweets, " +
+					analytic.getTotalFavorites() + " Favorites.");
+		}
+		
+		//TODO:	4. Ordenar os tweets pelo nome do autor, e exibir o primeiro nome e o último nome.
+		
+		//TODO: 5. Ordenar os tweets por data, e exibir a data mais recente e a menos recente.	
 
-		Operations operations = new Operations();
-
-		// Twitta
-		System.out.println(operations.tweet("fabianovt", "Hora certa: " + new GregorianCalendar().getTime()));
-
-		/**
-		 * A implementação deste metodo não garante a quantidade correta de
-		 * Tweets, e possui limitação de Rate(gerando erros 429-Rate limit
-		 * exceeded). Para o trend correto, é necessária a utilização do
-		 * Firehose que é pago, sendo assim segue uma implementação acadêmica de
-		 * exemplo utilizando o Twitter4J.
-		 * 
-		 * Fonte:
-		 * https://stackoverflow.com/questions/26429965/twitter4j-count-the-number-of-tweets-within-24-hours-return-an-integer
-		 */
-		operations.getTweetsLastWeek(hashtag);
-
+		
+//		// POST RESULTS
+//		Tweet tweet = new Tweet();
+//		tweet.setMensagemTweet("\r--------------------------------------------\r" + formatter(gCalendarInicio)
+//				+ ": " + hashtag + " " + contadorDeTweets + " tweets, " + contadorDeRetweets + " Retweets, "
+//				+ contadorDeFavorites + " Favorites." + " @michelpf");
+//		
+//		service.post(tweet);
 	}
-
 }

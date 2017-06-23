@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/twitter4j-async-4.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/twitter4j-core-4.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/twitter4j-core-4.0.4.jar" sourcepath="C:/opensource/eclipse-neon/opensource/Maven-Dependencies/.m2/repository/org/twitter4j/twitter4j-core/4.0.4/twitter4j-core-4.0.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-examples-4.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-media-support-4.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-stream-4.0.4.jar"/>

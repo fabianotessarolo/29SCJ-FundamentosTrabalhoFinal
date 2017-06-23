@@ -1,26 +1,23 @@
-package twitter.configuration;
+package twitter.auth;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Config {
+public class TwitterAPI {
 	
 	private String OAuthConsumerKey = null;
 	private String OAuthConsumerSecret = null;
 	private String AccessTokenKey = null;
 	private String AccessTokenSecret = null;
 
-	public Config() {
+	public TwitterAPI() {
 
 		Properties prop = new Properties();
 		InputStream input = null;
 		
-		
-
 		try {
-
 			input = new FileInputStream("config.properties");
 
 			// load a properties file
@@ -43,7 +40,6 @@ public class Config {
 				}
 			}
 		}
-
 	}
 
 	public String getOAuthConsumerKey() {
@@ -61,6 +57,4 @@ public class Config {
 	public String getAccessTokenSecret() {
 		return AccessTokenSecret;
 	}	
-	
-	
 }
