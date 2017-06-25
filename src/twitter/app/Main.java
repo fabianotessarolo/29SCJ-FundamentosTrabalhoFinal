@@ -1,5 +1,6 @@
 package twitter.app;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import twitter.services.APIService;
@@ -10,11 +11,12 @@ import twitter.wrappers.TweetWrapper;
 public class Main {
 
 	public static void main(String[] args) {
-		
-		APIService service = new APIService();
-		
 		// Hashtag selecionada para pesquisa
 		String hashtag = "#javaone";
+		LocalDate untilDate = LocalDate.now();
+		LocalDate sinceDate = untilDate.minusWeeks(1);
+		
+		APIService service = new APIService();		
 		
 		// GET ALL TWEETS
 		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag);
