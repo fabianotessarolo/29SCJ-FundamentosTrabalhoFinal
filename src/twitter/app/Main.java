@@ -1,8 +1,8 @@
 package twitter.app;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import twitter.models.Tweet;
 import twitter.services.APIService;
 import twitter.utils.DateUtil;
 import twitter.wrappers.TweetAnalyticsWrapper;
@@ -11,38 +11,54 @@ import twitter.wrappers.TweetWrapper;
 public class Main {
 
 	public static void main(String[] args) {
-		// Hashtag selecionada para pesquisa
+
+		final String NEW_LINE = "\n";
+		final String LINE = NEW_LINE + "-------------------------------------" + NEW_LINE;
+		StringBuilder log = new StringBuilder();
+
+		// SELECTED HASHTAG
 		String hashtag = "#javaone";
-		LocalDate untilDate = LocalDate.now();
-		LocalDate sinceDate = untilDate.minusWeeks(1);
-		
-		APIService service = new APIService();		
-		
+
+		APIService service = new APIService();
+
 		// GET ALL TWEETS
 		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag);
-		
+
 		// GET TOTAL TWEETS
 		List<TweetAnalyticsWrapper> analytics = service.getAnalytics(tweetsLastWeek);
-		
-		for (TweetAnalyticsWrapper analytic : analytics) {
-			System.out.println("\r--------------------------------------------\r" + 
-					DateUtil.formatter(analytic.getDate()) + ": " + hashtag + " " + 
-					analytic.getTotalTweets() + " Tweets, " + 
-					analytic.getTotalRetweets() + " Retweets, " +
-					analytic.getTotalFavorites() + " Favorites.");
-		}
-		
-		//TODO:	4. Ordenar os tweets pelo nome do autor, e exibir o primeiro nome e o último nome.
-		
-		//TODO: 5. Ordenar os tweets por data, e exibir a data mais recente e a menos recente.	
 
+		for (TweetAnalyticsWrapper analytic : analytics) {
+			log.append(LINE + 
+					">>> Análise do dia " + DateUtil.formatter(analytic.getDate()) + " com a hashtag: " + hashtag +
+					NEW_LINE + "Total de Tweets: " + analytic.getTotalTweets() + 
+					NEW_LINE + "Total de Retweets: " + analytic.getTotalRetweets() + 
+					NEW_LINE + "Total de Favorites: " + analytic.getTotalFavorites() + NEW_LINE);
+		}
+
+		List<Tweet> allTweets = service.getAllTweets(tweetsLastWeek);
+
+		// SORT BY AUTHOR
+		service.sortByAuthorAsc(allTweets);
+		log.append(LINE + ">>> Ordernado alfabeticamente com o primeiro autor" + NEW_LINE + allTweets.get(0) + NEW_LINE);
+
+		service.sortByAuthorDesc(allTweets);
+		log.append(LINE + ">>> Ordernado alfabeticamente com o ultimo autor" + NEW_LINE + allTweets.get(0) + NEW_LINE);
+
+		// SORT BY DATE
+		service.sortByDateAsc(allTweets);
+		log.append(LINE + ">>> Ordernado por data com o primeiro tweet" + NEW_LINE + allTweets.get(0) + NEW_LINE);
+
+		service.sortByDateDesc(allTweets);
+		log.append(LINE + ">>> Ordernado por data com o ultimo tweet" + NEW_LINE + allTweets.get(0) + NEW_LINE);
+
+		log.append(LINE + ">>> Total de Tweets na semana: " + NEW_LINE + allTweets.size() + NEW_LINE);
 		
-//		// POST RESULTS
-//		Tweet tweet = new Tweet();
-//		tweet.setMensagemTweet("\r--------------------------------------------\r" + formatter(gCalendarInicio)
-//				+ ": " + hashtag + " " + contadorDeTweets + " tweets, " + contadorDeRetweets + " Retweets, "
-//				+ contadorDeFavorites + " Favorites." + " @michelpf");
-//		
-//		service.post(tweet);
+		System.out.println(log.toString());
+
+//		 // POST RESULTS
+//		 Tweet tweet = new Tweet();
+//		 log.append(" @michelpf");
+//		 tweet.setMessage(log.toString());
+//		 service.post(tweet);
 	}
 }
