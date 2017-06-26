@@ -1,5 +1,6 @@
 package twitter.app;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import twitter.models.Tweet;
@@ -15,14 +16,16 @@ public class Main {
 		final String NEW_LINE = "\n";
 		final String LINE = NEW_LINE + "-------------------------------------" + NEW_LINE;
 		StringBuilder log = new StringBuilder();
+		
+		APIService service = new APIService();
 
 		// SELECTED HASHTAG
 		String hashtag = "#javaone";
-
-		APIService service = new APIService();
+		LocalDate iniDate = DateUtil.pastDate(7);
+		LocalDate endDate = DateUtil.today();
 
 		// GET ALL TWEETS
-		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag);
+		List<TweetWrapper> tweetsLastWeek = service.getTweetsLastWeek(hashtag, iniDate, endDate);
 
 		// GET TOTAL TWEETS
 		List<TweetAnalyticsWrapper> analytics = service.getAnalytics(tweetsLastWeek);

@@ -21,28 +21,26 @@ public class APIService {
 
 	private TweetComparator comparator = new TweetComparator();
 
-	public List<TweetWrapper> getTweetsLastWeek(String hashtag) {
+	public List<TweetWrapper> getTweetsLastWeek(String hashtag, LocalDate iniDate, LocalDate endDate) {
 		List<Tweet> tweets = null;
 		List<TweetWrapper> tweetsWrapper = new ArrayList<>();
 		Twitter twitter = TwitterAPIAuth.getAccess();
 
 		Tweet tweet = null;
 		TweetWrapper tweetWrapper = null;
-		LocalDate today = DateUtil.today();
-		LocalDate startDate = DateUtil.pastDate(7);
 
-		while (startDate.isBefore(today)) {
+		while (iniDate.isBefore(endDate)) {
 			Query query = new Query(hashtag);
 			tweets = new ArrayList<>();
-			LocalDate yesterday = startDate.minusDays(1);
+			LocalDate yesterday = iniDate.minusDays(1);
 			query.setSince(DateUtil.formatter(yesterday));
-			query.setUntil(DateUtil.formatter(startDate));
+			query.setUntil(DateUtil.formatter(iniDate));
 			query.setCount(1);
 
 			QueryResult result;
 
 			System.out.println("\nIniciando busca por tweets com a hastag: " + hashtag + " postados desde " + yesterday
-					+ " até " + startDate);
+					+ " até " + iniDate);
 
 			try {
 				result = twitter.search(query);
@@ -56,9 +54,9 @@ public class APIService {
 					}
 					result = twitter.search(query);
 				}
-				tweetWrapper = new TweetWrapper(startDate, tweets);
+				tweetWrapper = new TweetWrapper(iniDate, tweets);
 				tweetsWrapper.add(tweetWrapper);
-				startDate = startDate.plusDays(1);
+				iniDate = iniDate.plusDays(1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
