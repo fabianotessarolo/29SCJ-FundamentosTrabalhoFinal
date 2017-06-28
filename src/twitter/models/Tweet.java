@@ -68,8 +68,7 @@ public class Tweet implements Comparable<Tweet>, Serializable  {
 
 	@Override
 	public String toString() {
-		return "Tweet [nameAuthor=" + author + ", message=" + message + ", date=" + date + ", retweetsCount="
-				+ retweetsCount + ", favoritesCount=" + favoritesCount + "]";
+		return "Tweet [nameAuthor=" + author + ", date=" + date + "]";
 	}
 
 	@Override

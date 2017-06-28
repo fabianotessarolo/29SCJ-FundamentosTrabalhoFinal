@@ -104,8 +104,13 @@ public class APIService {
 		allTweets.sort(Collections.reverseOrder(comparator));
 	}
 
-	public void post(Tweet tweet) {
+	public void post(StringBuilder message, String receiver) {
 		try {
+			
+			System.out.println(message.toString());
+			Tweet tweet = new Tweet();
+			tweet.setMessage(message.toString());
+			
 			Twitter twitter = TwitterAPIAuth.getAccess();
 			twitter.updateStatus(tweet.getMessage());
 		} catch (TwitterException e) {
