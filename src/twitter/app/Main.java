@@ -23,11 +23,11 @@ public class Main {
 		LocalDate iniDate = DateUtil.pastDate(7);
 		LocalDate endDate = DateUtil.today();
 		
-		log.append("GRUPO: 29SCJ").append(NEW_LINE)
-			.append("Diogo Tsuguio Noda(rm35132)").append(NEW_LINE)
-			.append("Fabiano Vanzella Tessarolo(rm37981)").append(NEW_LINE)
-			.append("Josinaldo Cipriano Fontes(rm31863)").append(NEW_LINE)
-			.append("Silas Ruiz Ianez(rm31324)");
+		log.append("29SCJ").append(NEW_LINE)
+			.append("Diogo Tsuguio Noda-rm35132").append(NEW_LINE)
+			.append("Fabiano Vanzella Tessarolo-rm37981").append(NEW_LINE)
+			.append("Josinaldo Cipriano Fontes-rm31863").append(NEW_LINE)
+			.append("Silas Ruiz Ianez-rm31324");
 
 		 service.post(log, "@michelpf");
 		 log.setLength(0);

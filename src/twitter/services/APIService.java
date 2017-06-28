@@ -109,6 +109,7 @@ public class APIService {
 			
 			System.out.println(message.toString());
 			Tweet tweet = new Tweet();
+			message.append(" ").append(receiver);
 			tweet.setMessage(message.toString());
 			
 			Twitter twitter = TwitterAPIAuth.getAccess();
